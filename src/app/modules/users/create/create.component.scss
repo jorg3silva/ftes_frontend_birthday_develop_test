@@ -1,0 +1,16 @@
+@import "../../../../assets/scss/index";
+
+.create-user-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    & .form-container {
+        & .form-title {
+            color: $color-white;
+            font-size: $size-20;
+            font-weight: 300;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+@import './variables.scss';
+// @import './mixins.scss';
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    position: fixed; // for android chrome toolbar hidding
+}
+
+body {
+    background-color: $color-dark-4;
+    font-family: 'Lato', serif;
+    overflow: hidden;
+}
