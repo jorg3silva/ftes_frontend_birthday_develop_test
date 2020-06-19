@@ -1,16 +1,99 @@
 @import "../../../../assets/scss/index";
 
 .create-user-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+   @include flex(fully);
     height: 100%;
     width: 100%;
+
     & .form-container {
+        width: 420px;
         & .form-title {
+            @include flex(vertical);
             color: $color-white;
-            font-size: $size-20;
-            font-weight: 300;
+            margin-bottom: $size-14;
+            & span:first-child {
+                font-size: $size-22;
+                font-weight: bolder;
+                margin-bottom: $size-5;
+            }
+            & span:last-child {
+                font-size: $size-18;
+                font-weight: 300;
+            }
+        }
+        & .form-tip {
+            color: $color-white;
+            font-style: italic;
+            font-size: $size-6;
+            margin-bottom: $size-8;
+            padding-left: $size-8;
+            opacity: .8;
+            display: block;
+        }
+    }
+    & .result-container {
+        width: 420px;
+
+        & .data {
+            @include flex(vertical);
+            color: $color-white;
+            margin-bottom: $size-10;
+
+            & span:first-child {
+                font-size: $size-20;
+                font-weight: 500;
+            }
+
+            & span:last-child {
+                font-size: $size-8;
+                font-weight: lighter;
+                opacity: .8;
+            }
+        }
+
+        & .birthday-info {
+            @include flex(vertical);
+            color: $color-white;
+            margin: $size-10 0 $size-30 0;
+
+            & .birthday-left {
+                & i {
+                    margin-right: $size-4;
+                }
+            }
+
+            & .birthday-today-title {
+                @include flex(fully);
+                margin-top: $size-15;
+                text-align: center;
+                font-size: $size-12;
+                color: $color-main;
+                & i {
+                    font-size: $size-18;
+                }
+            }
+
+            & .birthday-today-poem {
+                @include scroll(y);
+                @include scrollbar(small);
+                max-height: 35vh;
+                text-align: center;
+                font-size: $size-7;
+                font-style: italic;
+                margin-top: $size-15;
+            }
+        }
+    }
+}
+
+// Mobile styles responsive
+@media (min-width: 320px) and (max-width: 665px) {
+    .create-user-wrapper {
+        & .form-container {
+            width: 96%;
+        }
+        & .result-container {
+            width: 96%;
         }
     }
 }

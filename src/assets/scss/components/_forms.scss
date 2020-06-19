@@ -1,0 +1,194 @@
+// FORMS
+form {
+    text-align: left;
+
+    & .form-column {
+        margin-bottom: $size-8;
+    }
+
+    & .form-item {
+        width: 100%;
+
+        &-label {
+            @include label($color-gray-2);
+            margin-left: $size-8;
+            margin-bottom: $size-2;
+            display: block;
+
+            &-secondary {
+                margin-left: $size-4;
+                opacity: .7;
+
+                font: {
+                    style: italic;
+                    weight: 300;
+                }
+            }
+        }
+
+        &-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            &-input {
+                display: flex;
+                flex-direction: row;
+                position: relative;
+
+                & input {
+                    width: 100%;
+                    height: $size-22;
+                    font-size: $size-10;
+                    background-color: $color-white;
+                    border: $size-0 solid $color-gray-2;
+                    border-radius: $size-22;
+                    transition: border-color .3s ease;
+                    padding-right: calc(#{$size-12} + #{$size-8});
+                    padding-left: $size-8;
+
+                    &::placeholder {
+                        /* Chrome, Firefox, Opera, Safari 10.1+ */
+                        color: $color-gray-2 !important;
+                        opacity: 1;
+                        /* Firefox */
+                    }
+
+                    &:-ms-input-placeholder {
+                        /* Internet Explorer 10-11 */
+                        color: $color-gray-2 !important;
+                    }
+
+                    &::-ms-input-placeholder {
+                        /* Microsoft Edge */
+                        color: $color-gray-2 !important;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: $color-gray-2;
+                        box-shadow: none;
+                    }
+
+                    &:focus~.input-option {
+                        position: absolute;
+                    }
+
+                    // Input Status
+                    &.error {
+                        border-color: $color-error-1;
+                    }
+
+                    &.error~.input-option-wrapper .input-option.error i {
+                        color: $color-error-1;
+                    }
+
+                    &.warning {
+                        border-color: $color-warning-1;
+                    }
+
+                    &.warning~.input-option-wrapper .input-option.warning i {
+                        color: $color-warning-1;
+                    }
+
+                    &.success {
+                        border-color: $color-success-1;
+                    }
+
+                    &.success~.input-option-wrapper .input-option.success i {
+                        color: $color-success-1;
+                    }
+
+                    &.info {
+                        border-color: $color-info-1;
+                    }
+
+                    &.info~.input-option-wrapper .input-option.info i {
+                        color: $color-info-1;
+                    }
+
+                    &.help {
+                        border-color: $color-help-1;
+                    }
+
+                    &.help~.input-option-wrapper .input-option.help i {
+                        color: $color-help-1;
+                    }
+                }
+
+                & .input-option-wrapper {
+
+                    position: absolute;
+                    right: $size-8;
+                    top: calc( #{$size-22} / 2 - #{$size-17}/2); // height of input/2 - height of input-option/2
+                    height: $size-17;
+                    display: flex;
+
+                    & .input-option {
+                        @include flex(full);
+                        height: $size-17;
+                        width: $size-12;
+                        color: $color-gray-2;
+                        font-size: $size-10;
+                        transition: color .3s ease;
+                        z-index: 1;
+                        margin-left: $size-4;
+
+                        &:first-child {
+                            margin-left: 0;
+                        }
+
+                        &.input-option-trigger {
+                            cursor: pointer;
+                            &:hover {
+                                color: $color-dark-1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &-message {
+            @include text-message($color-gray-2);
+            @include flex(fully);
+            align-items: flex-start;
+            margin-left: $size-7;
+
+            &.error {
+                @include text-message($color-error-1);
+            }
+
+            &.warning {
+                @include text-message($color-warning-1);
+            }
+
+            &.success {
+                @include text-message($color-success-1);
+            }
+
+            &.info {
+                @include text-message($color-info-1);
+            }
+
+            &.help {
+                @include text-message($color-help-1);
+            }
+        }
+
+        &.disabled {
+            .form-item-label {
+                opacity: .5;
+            }
+            .form-item-group-input {
+                & input {
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+
+    & .form-buttons {
+        padding: $size-2 $size-6 0;
+    }
+}

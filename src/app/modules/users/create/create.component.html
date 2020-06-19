@@ -1,5 +1,141 @@
 <div class="create-user-wrapper">
-    <div class="form-container">
-        <span class="form-title"><b>Hola!</b> Ingresa tus datos.</span>
+    <div *ngIf=" ! showResult" class="form-container">
+        <span class="form-title">
+            <span>Hola!</span>
+            <span>Ingresa tus datos.</span>
+        </span>
+        <form class="register-invitation-form" [formGroup]="createUserForm">
+            <div class="form-column">
+                <div class="form-item">
+                    <label class="form-item-label" for="firstname">Nombres (*)</label>
+                    <div class="form-item-group">
+                        <div class="form-item-group-input">
+                            <input id="firstname"
+                                   name="firstname"
+                                   type="text"
+                                   class="form-control"
+                                   spellcheck="false"
+                                   autocomplete="off"
+                                   autocapitalize="off"
+                                   formControlName="firstname"
+                                   [ngClass]="{ 'error': formSubmitted && form.firstname.errors }"
+                            >
+                            <div class="input-option-wrapper">
+                                <span *ngIf="formSubmitted && form.firstname.errors" class="input-option input-option-trigger error">
+                                    <i class="fas fa-times-circle animated fadeIn"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="formSubmitted && form.firstname.errors" class="form-item-message error animated fadeIn">
+                        <span *ngIf="form.firstname.hasError('required') || form.firstname.hasError('notBlank')">
+                            {{ _messages.REQUIRED_FIELD }}
+                        </span>
+                        <span *ngIf="form.firstname.hasError('maxlength')">
+                            {{ _messages.MAX_LENGHT }} (Máx.: {{ form.firstname.getError('maxlength').requiredLength }})
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="form-item">
+                    <label class="form-item-label" for="lastname">Apellidos (*)</label>
+                    <div class="form-item-group">
+                        <div class="form-item-group-input">
+                            <input id="lastname"
+                                   name="lastname"
+                                   type="text"
+                                   class="form-control"
+                                   spellcheck="false"
+                                   autocomplete="off"
+                                   autocapitalize="off"
+                                   formControlName="lastname"
+                                   [ngClass]="{ 'error': formSubmitted && form.lastname.errors }"
+                            >
+                            <div class="input-option-wrapper">
+                                <span *ngIf="formSubmitted && form.lastname.errors" class="input-option input-option-trigger error">
+                                    <i class="fas fa-times-circle animated fadeIn"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="formSubmitted && form.lastname.errors" class="form-item-message error animated fadeIn">
+                        <span *ngIf="form.lastname.hasError('required') || form.lastname.hasError('notBlank')">
+                            {{ _messages.REQUIRED_FIELD }}
+                        </span>
+                        <span *ngIf="form.lastname.hasError('maxlength')">
+                            {{ _messages.MAX_LENGHT }} (Máx.: {{ form.lastname.getError('maxlength').requiredLength }})
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="form-item">
+                    <label class="form-item-label" for="birthdate">Fecha de Nacimiento (DD-MM-AAAA) (*)</label>
+                    <div class="form-item-group">
+                        <div class="form-item-group-input">
+                            <input id="birthdate"
+                                   name="birthdate"
+                                   class="form-control"
+                                   spellcheck="false"
+                                   autocomplete="off"
+                                   autocapitalize="off"
+                                   formControlName="birthdate"
+                                   placeholder="DD-MM-AAAA"
+                                   ngbDatepicker
+                                   #d="ngbDatepicker"
+                                   [minDate]="{year: 1900, month: 1, day: 1}"
+                                   (click)="d.toggle()"
+                                   readonly
+                                   [ngClass]="{ 'error': formSubmitted && form.birthdate.errors }"
+                            >
+                            <div class="input-option-wrapper">
+                                <span *ngIf="formSubmitted && form.birthdate.errors" class="input-option input-option-trigger error">
+                                    <i class="fas fa-times-circle animated fadeIn"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="formSubmitted && form.birthdate.errors" class="form-item-message error animated fadeIn">
+                        <span *ngIf="form.birthdate.hasError('required') || form.birthdate.hasError('notBlank')">
+                            {{ _messages.REQUIRED_FIELD }}
+                        </span>
+                        <span *ngIf="form.birthdate.hasError('maxlength')">
+                            {{ _messages.MAX_LENGHT }} (Máx.: {{ form.birthdate.getError('maxlength').requiredLength }})
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <span class="form-tip">(*) Campos requeridos</span>
+        </form>
+        <div class="buttons">
+            <button class="btn-primary-full" [ngClass]="{'disabled': loadingButton}" (click)="create()">
+                <span *ngIf=" ! loadingButton ">Crear usuario</span>
+                <span *ngIf="loadingButton" class="loading-button">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span class="font-italic">Procesando...</span>
+                </span>
+            </button>
+        </div>
+    </div>
+    <div *ngIf="showResult" class="result-container">
+        <div class="data">
+            <span>Alejandro San Martín, 28 Años.</span>
+            <span>Fecha de nacimiento: 04/03/1992</span>
+        </div>
+        <div class="birthday-info">
+            <span *ngIf="false" class="birthday-left"> <i class="fas fa-birthday-cake"></i> Faltan <b>256 días</b> para que estés de cumpleaños. </span>
+            <span *ngIf="true" class="birthday-today-title">
+                <i class="fas fa-birthday-cake"></i>
+                <span>¡Felicidades hoy es tu cumpleaños!</span>
+            </span>
+            <span *ngIf="true" class="birthday-today-poem" style="white-space: pre-line;" [innerText]='"There was insurgency-\nin white night.\nMoon will stay to witness \n\nthe murder\nof a golden leaf.\nWhat was the promise of a ripe\nlanguage? The yellow thrust? \nKeeping a date with death was not all important.\n\nThere were\nlots of poems to be underlined, \npreened and straightened. The dirt had\naccumulated. A metaphor\nwill remove the stains.\n\nAny confession will\ntake away the mystry. Who killed\nthe nothing? \n\nUnrelenting\nthe apples were crashing. "'></span>
+        </div>
+        <div class="buttons">
+            <button class="btn-secondary-full" (click)="startOver()">
+                <span><i class="fas fa-reply"></i> Volver</span>
+            </button>
+        </div>
     </div>
 </div>

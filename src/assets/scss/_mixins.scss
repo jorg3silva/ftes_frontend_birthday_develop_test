@@ -1,0 +1,262 @@
+@mixin btn-props($shape, $size, $width: max-content) {
+    cursor: pointer;
+    @if $shape == default {
+        width: $width;
+        font-size: $size-7;
+        padding: 0 $size-7;
+        border-radius: 50rem;
+
+        & i {
+            margin-right: $size-4;
+        }
+
+        @if $size == small {
+            height: $size-15;
+            font-size: $size-6;
+        }
+
+        @if $size == medium {
+            height: $size-20;
+            font-size: $size-7;
+        }
+
+        @if $size==large {
+            height: $size-22;
+            font-size: $size-9;
+            padding: 0 $size-9;
+        }
+
+    } @else if $shape == icon {
+        padding: 0;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & i {
+            line-height: 0;
+            margin-right: 0;
+        }
+
+        @if $size==small {
+            height: $size-15;
+            width: $size-15;
+            font-size: $size-6;
+        }
+
+        @if $size==medium {
+            height: $size-20;
+            width: $size-20;
+            font-size: $size-7;
+        }
+
+        @if $size==large {
+            height: $size-22;
+            width: $size-22;
+            font-size: $size-9;
+        }
+    }
+
+    &.skeleton {
+        @include skeleton;
+        color: transparent !important;
+        border: none !important;
+        pointer-events: none;
+    }
+
+    & i.fa-spin {
+        animation-duration: 1s;
+    }
+}
+
+@mixin primary-button($main-color, $text-color, $hover, $disabled: lighten) {
+    color: $text-color;
+    background-color: $main-color;
+    border: 1px solid $main-color;
+    transition: all 0.3s ease;
+    font-weight: bold;
+
+    @if $main-color == $color-white {
+        border-color: lighten($color-gray-2, 10%);
+    }
+
+    &:hover,
+    &:active,
+    &.active,
+    &:focus {
+
+        @if $hover==darken {
+            background-color: darken($main-color, 10%);
+        } @else if $hover==lighten {
+            background-color: lighten($main-color, 10%);
+        } @else {
+            background-color: $hover;
+        }
+
+        border-color: transparent;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    &:disabled,
+    &.disabled {
+        @if $disabled==darken {
+            background-color: darken($main-color, 20%);
+        } @else if $disabled==lighten {
+            background-color: lighten($main-color, 20%);
+        } @else {
+            background-color: lighten($disabled, 20%);
+        }
+        border-color: transparent;
+        color: $color-white;
+        cursor: not-allowed;
+    }
+}
+
+@mixin label($font-color) {
+    color: $font-color;
+    margin-bottom: 0;
+
+    font: {
+        size: $size-8;
+        weight: bold;
+    }
+
+    & i {
+        margin-right: $size-2;
+    }
+
+    &.skeleton {
+        @include skeleton;
+        color: transparent;
+        border-radius: 50rem;
+    }
+}
+
+@mixin text-message($font-color) {
+    color: $font-color;
+    font-size: $size-7;
+    margin-top: $size-2;
+    line-height: 1.3;
+
+    & i {
+        margin-right: $size-6;
+    }
+}
+
+@mixin shadow-gray-light {
+    box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.16);
+    -webkit-box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.16);
+}
+
+@mixin shadow-gray-light-top {
+    box-shadow: 0px -4px 12px -8px rgba(0, 0, 0, 0.16);
+    -webkit-box-shadow: 0px -4px 12px -8px rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 0px -4px 12px -8px rgba(0, 0, 0, 0.16);
+}
+
+@mixin shadow-gray-light-bottom {
+    box-shadow: 0 4px 12px -8px rgba(0, 0, 0, 0.16);
+    -webkit-box-shadow: 0 4px 12px -8px rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 0 4px 12px -8px rgba(0, 0, 0, 0.16);
+}
+
+@mixin shadow-gray-dark {
+    box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.64);
+    -webkit-box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.64);
+    -moz-box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.64);
+}
+
+@mixin shadow-gray-dark-top {
+    box-shadow: 0px -4px 12px -8px rgba(0, 0, 0, 0.64);
+    -webkit-box-shadow: 0px -4px 12px -8px rgba(0, 0, 0, 0.64);
+    -moz-box-shadow: 0px -4px 12px -8px rgba(0, 0, 0, 0.64);
+}
+
+@mixin shadow-gray-dark-bottom {
+    box-shadow: 0 4px 12px -8px rgba(0, 0, 0, 0.64);
+    -webkit-box-shadow: 0 4px 12px -8px rgba(0, 0, 0, 0.64);
+    -moz-box-shadow: 0 4px 12px -8px rgba(0, 0, 0, 0.64);
+}
+
+@mixin scrollbar($size) {
+    $background-color: $color-main;
+
+    &::-webkit-scrollbar-track {
+        background-color: $color-gray-1;
+        border-radius: 50rem;
+        transition: all ease-in .5s;
+    }
+
+    &::-webkit-scrollbar {
+        @if $size == default {
+            width: $size-4;
+            height: $size-4;
+        } @else if $size == small {
+            width: $size-2;
+            height: $size-2;
+        }
+
+        background-color: $color-gray-1;
+        border-radius: 50rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $background-color;
+        border-radius: 50rem;
+    }
+
+}
+
+@mixin skeleton {
+    background-image: linear-gradient(100deg, rgba(255, 158, 158, 0), rgba(255, 255, 255, 0.3) 70%, rgba(255, 255, 255, 0) 100%), linear-gradient($color-gray-3 100%, transparent 0);
+    background-repeat: repeat-y;
+    background-size: 100px 10px, auto 25px;
+    background-position: 0 0, 0 0;
+    -webkit-animation: shine_row 1s infinite;
+    animation: shine_row 1s infinite;
+    opacity: 0.5;
+}
+
+@mixin flex($type) {
+    display: flex;
+    @if $type == full {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    } @else if $type == fully {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    } @else if $type == horizontal {
+        flex-direction: row;
+        justify-content: center;
+    } @else if $type == vertical {
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@mixin scroll($type: y) {
+    -webkit-overflow-scrolling: touch;
+
+    @if $type == y {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    @else if $type == x {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+}
+
+@mixin no-select() {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                              supported by Chrome, Edge, Opera and Firefox */
+}

@@ -1,0 +1,35 @@
+// BUTTONS
+.btn-primary {
+    @include btn-props(default, large);
+    @include primary-button($color-main, $color-white, darken);
+}
+
+.btn-primary-full {
+    @include btn-props(default, large, 100%);
+    @include primary-button($color-main, $color-white, darken);
+}
+
+.btn-primary-blue {
+    @include btn-props(default, large);
+    @include primary-button($color-blue-1, $color-white, darken);
+}
+
+.btn-primary-blue-full {
+    @include btn-props(default, large, 100%);
+    @include primary-button($color-blue-1, $color-white, darken);
+}
+
+.btn-secondary-full {
+    @include btn-props(default, large, 100%);
+    @include primary-button($color-white, $color-gray-3, darken);
+}
+
+.btn-secondary {
+    @include btn-props(default, large);
+    @include primary-button($color-white, $color-gray-3, darken);
+}
+
+.btn-secondary-calypso {
+    @include btn-props(default, large);
+    @include primary-button($color-white, $color-main, darken);
+}
