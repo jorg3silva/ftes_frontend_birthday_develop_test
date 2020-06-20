@@ -34,9 +34,9 @@ export class UsersService {
      */
     create( user: UserDto ): Observable<StandardResponseDto> {
         const param = {
-            firstname: user.firstname,
-            lastname: user.lastname,
-            birthdate: user.birthdate,
+            firstNames: user.firstname,
+            lastNames: user.lastname,
+            birthDate: user.birthdate,
         };
 
         console.debug(param);

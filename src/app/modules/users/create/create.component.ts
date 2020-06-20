@@ -9,6 +9,7 @@ import { StandardResponseDto } from "@core/dto/standard-response.dto";
 import { NgbDate, NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 import { NgbDateCustomParserFormatter } from "@core/utils/dateformat.util";
 import * as moment from "moment";
+import { UserBirthdateDto } from "@core/dto/user-birthdate.dto";
 
 @Component({
     selector: 'app-create',
@@ -45,6 +46,12 @@ export class CreateComponent implements OnInit {
     // show results for user data
     public showResult = false;
 
+    // dto to handle data of response
+    public userBirthdate: UserBirthdateDto;
+
+    // service errors
+    public businessErrorMsg = '';
+
     /**
      *
      *  Contructor
@@ -72,14 +79,14 @@ export class CreateComponent implements OnInit {
                 dto.firstname, Validators.compose([
                     CustomsValidators.notBlank,
                     Validators.required,
-                    Validators.maxLength(70),
+                    Validators.maxLength(140),
                 ]),
             ],
             lastname: [
                 dto.lastname, Validators.compose([
                     CustomsValidators.notBlank,
                     Validators.required,
-                    Validators.maxLength(70),
+                    Validators.maxLength(140),
                 ]),
             ],
             birthdate: [
@@ -128,6 +135,7 @@ export class CreateComponent implements OnInit {
 
         this.loadingButton = true;
         this.formSubmitted = true;
+        this.businessErrorMsg = '';
 
         // Si el formulario no es válido, termina aquí
         if (!this.createUserForm.valid) {
@@ -151,11 +159,6 @@ export class CreateComponent implements OnInit {
             return false;
         }
 
-        this.loadingButton = false;
-        this.formSubmitted = false;
-        this.showResult = true;
-        return;
-
         const birthdate: NgbDate = this.createUserForm.controls['birthdate'].value;
         const mdt = moment([birthdate.year, birthdate.month - 1, birthdate.day]);
 
@@ -178,25 +181,34 @@ export class CreateComponent implements OnInit {
             return false;
         }
 
-        if ( resp !== null && resp !== undefined && resp.status === 'success' && resp.data.user.todayBirthDay !== null ) {
+        if ( resp !== null && resp !== undefined && resp.status === 'success' && resp.data.age !== null ) {
 
+            this.userBirthdate = resp.data;
+
+            this.showResult = true;
             this.loadingButton = false;
             this.formSubmitted = false;
 
-            console.debug('Success: ');
             console.debug(resp);
 
             return true;
 
-        } else if (resp !== null && resp.status === 'business_error' ) {
-
+        } else if (resp !== null && resp.status === 'error' ) {
+            this.showResult = false;
             this.loadingButton = false;
             this.formSubmitted = false;
 
             console.debug('Ha ocurrido un error de negocio');
             console.debug(resp);
-
+            this.businessErrorMsg = resp.message;
             return true;
+
+        } else {
+            this.showResult = false;
+            this.loadingButton = false;
+            this.formSubmitted = false;
+
+            console.debug('Ha ocurrido un error desconocido');
         }
     }
 

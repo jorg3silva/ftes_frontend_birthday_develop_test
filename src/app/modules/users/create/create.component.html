@@ -4,6 +4,10 @@
             <span>Hola!</span>
             <span>Ingresa tus datos.</span>
         </span>
+        <div *ngIf="businessErrorMsg !== ''" class="error-panel">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ businessErrorMsg }}
+        </div>
         <form class="register-invitation-form" [formGroup]="createUserForm">
             <div class="form-column">
                 <div class="form-item">
@@ -121,16 +125,20 @@
     </div>
     <div *ngIf="showResult" class="result-container">
         <div class="data">
-            <span>Alejandro San Martín, 28 Años.</span>
-            <span>Fecha de nacimiento: 04/03/1992</span>
+            <span>{{ userBirthdate.firstName | titlecase}} {{ userBirthdate.lastName | titlecase}}, {{ userBirthdate.age }} Años.</span>
+            <span>Fecha de nacimiento: {{ userBirthdate.birthDate }}</span>
         </div>
         <div class="birthday-info">
-            <span *ngIf="false" class="birthday-left"> <i class="fas fa-birthday-cake"></i> Faltan <b>256 días</b> para que estés de cumpleaños. </span>
-            <span *ngIf="true" class="birthday-today-title">
+            <span *ngIf=" ! userBirthdate.todayBirthday" class="birthday-left">
+                <i class="fas fa-birthday-cake"></i>
+                {{ userBirthdate.leftDays === 1 ? 'Falta' : 'Faltan'}} <b>{{ userBirthdate.leftDays }} {{ userBirthdate.leftDays === 1 ? 'Día' : 'Días'}}</b> para que estés de cumpleaños.
+            </span>
+            <span *ngIf="userBirthdate.todayBirthday" class="birthday-today-title">
                 <i class="fas fa-birthday-cake"></i>
                 <span>¡Felicidades hoy es tu cumpleaños!</span>
             </span>
-            <span *ngIf="true" class="birthday-today-poem" style="white-space: pre-line;" [innerText]='"There was insurgency-\nin white night.\nMoon will stay to witness \n\nthe murder\nof a golden leaf.\nWhat was the promise of a ripe\nlanguage? The yellow thrust? \nKeeping a date with death was not all important.\n\nThere were\nlots of poems to be underlined, \npreened and straightened. The dirt had\naccumulated. A metaphor\nwill remove the stains.\n\nAny confession will\ntake away the mystry. Who killed\nthe nothing? \n\nUnrelenting\nthe apples were crashing. "'></span>
+            <span *ngIf="userBirthdate.todayBirthday" class="birthday-today-poem" [innerText]="userBirthdate.poem"></span>
+            <b *ngIf="userBirthdate.todayBirthday" class="author">Author: {{userBirthdate.poet}}</b>
         </div>
         <div class="buttons">
             <button class="btn-secondary-full" (click)="startOver()">

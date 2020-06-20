@@ -9,10 +9,6 @@ export class HttpUtil {
 
     static readonly CONTENT_TYPE: string = 'Content-Type';
     static readonly APPLICATION_JSON_UTF8: string = 'application/json; charset=utf-8';
-    static readonly APPLICATION_X_WWW_FORM_URLENCODED: string = 'application/x-www-form-urlencoded';
-    static readonly APPLICATION_MULTIPART_FORM_DATA: string = 'multipart/form-data';
-    static readonly ACCESS_TOKEN_HEADER: string = 'Authorization';
-    static readonly ACCESS_TOKEN_BEARER: string = 'Bearer ';
 
     constructor(private readonly http: HttpClient) {
     }

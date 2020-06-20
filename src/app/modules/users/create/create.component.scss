@@ -30,6 +30,29 @@
             opacity: .8;
             display: block;
         }
+
+        & .error-panel {
+            background-color: lighten($color-warning-3, 12%);
+            color: $color-white;
+            font-size: $size-7;
+            text-align: center;
+            padding: $size-8 0;
+            width: 100%;
+            border-radius: $size-5;
+            margin: $size-10 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & i {
+                right: -10px;
+                font-size: 80px;
+                opacity: .6;
+                position: absolute;
+            }
+        }
     }
     & .result-container {
         width: 420px;
@@ -81,6 +104,13 @@
                 font-size: $size-7;
                 font-style: italic;
                 margin-top: $size-15;
+                white-space: pre-line;
+            }
+
+            & .author {
+                font-size: $size-7;
+                text-align: right;
+                margin-top: $size-4;
             }
         }
     }
