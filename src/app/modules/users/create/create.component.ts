@@ -177,7 +177,7 @@ export class CreateComponent implements OnInit {
         } catch (e) {
             this.loadingButton = false;
             this.formSubmitted = false;
-            console.debug('Ha ocurrido un error en nuestros servidores. Intentalo más tarde.');
+            this.businessErrorMsg = 'Ha ocurrido un error al intentar conectarse a nuestros servidores.';
             return false;
         }
 
@@ -189,8 +189,6 @@ export class CreateComponent implements OnInit {
             this.loadingButton = false;
             this.formSubmitted = false;
 
-            console.debug(resp);
-
             return true;
 
         } else if (resp !== null && resp.status === 'error' ) {
@@ -198,8 +196,6 @@ export class CreateComponent implements OnInit {
             this.loadingButton = false;
             this.formSubmitted = false;
 
-            console.debug('Ha ocurrido un error de negocio');
-            console.debug(resp);
             this.businessErrorMsg = resp.message;
             return true;
 
@@ -208,7 +204,7 @@ export class CreateComponent implements OnInit {
             this.loadingButton = false;
             this.formSubmitted = false;
 
-            console.debug('Ha ocurrido un error desconocido');
+            this.businessErrorMsg = 'Ha ocurrido un error desconocido al procesar su solicitud.';
         }
     }
 

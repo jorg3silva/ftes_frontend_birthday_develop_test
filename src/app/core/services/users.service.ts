@@ -39,8 +39,6 @@ export class UsersService {
             birthDate: user.birthdate,
         };
 
-        console.debug(param);
-
         return this.httpService.postJson<StandardResponseDto>(`${this.baseUrl}/users/create`, param)
             .pipe(map( response => {
                 return response;
